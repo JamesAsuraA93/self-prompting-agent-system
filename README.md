@@ -33,22 +33,23 @@ The loop is most useful where a single attempt tends to miss: vague requirements
 ## How it works
 
 You write what you need in `reqs.md` (or `need.md`), with acceptance criteria that someone else could check.
+Beside it sits `rules.md`, the house rules that hold for every task in the project, such as forbidden characters (the em dash, for one) or voice and naming conventions. Temper creates it from a template when it is missing, copies it into every prompt, has the judge check every output against it, and follows it in its own files. `temper.py rules-check` does the mechanical part and fails on any forbidden text.
 Temper then runs a loop with three roles that deliberately see different things:
 
 ```
-reqs.md + repo + learnings.md
+reqs.md + rules.md + repo + learnings.md
         |
         v
-  compiler (main thread)  -- writes prompt.vN.md
+  compiler (main thread): writes prompt.vN.md
         |
         v
-  executor (fresh subagent) -- sees only the prompt, does the work
+  executor (fresh subagent): sees only the prompt, does the work
         |
         v
-  judge (fresh subagent) -- sees reqs.md and the output, never the prompt
+  judge (fresh subagent): sees reqs.md and the output, never the prompt
         |
         v
-  temper.py record -- decides: stop, continue, or ask
+  temper.py record: decides to stop, continue, or ask
         |
         v
   diagnose -> prompt gap? fix the prompt and go again

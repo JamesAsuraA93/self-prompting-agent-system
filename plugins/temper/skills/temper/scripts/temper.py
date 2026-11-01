@@ -8,6 +8,7 @@
 import argparse
 import hashlib
 import json
+import re
 import shutil
 import sys
 from datetime import datetime, timezone
@@ -318,7 +319,83 @@ def cmd_dream_done(args: argparse.Namespace) -> None:
     print(f"✅ ปิด dream {args.dream_id} แล้ว ({len(done['runs'])} run)")
 
 
-# 6. status: สรุปทุก run ที่เคยบันทึกไว้
+# 6. rules-check: หาข้อความต้องห้ามตาม rules.md แล้วตัดสินผ่าน/ไม่ผ่าน
+TEXT_EXT = {".md", ".txt", ".html", ".htm", ".css", ".js", ".mjs", ".cjs", ".ts", ".tsx", ".jsx",
+            ".py", ".json", ".yaml", ".yml", ".toml", ".csv", ".sh", ".sql", ".svg", ".xml"}
+SKIP_DIRS = {".git", "node_modules", "__pycache__", ".pytest_cache", "learnings.history"}
+
+
+def load_forbidden(rules_path: Path) -> list[tuple[str, str]]:
+    """อ่านหัวข้อ ## Forbidden text: แต่ละบรรทัดเป็น U+XXXX หรือข้อความใน backtick ตามด้วยเหตุผล"""
+    text = rules_path.read_text(encoding="utf-8")
+    match = re.search(r"^## Forbidden text\n(.*?)(?=^## |\Z)", text, re.S | re.M)
+    if not match:
+        return []
+    items = []
+    for line in match.group(1).splitlines():
+        line = line.strip()
+        if not line.startswith("- "):
+            continue
+        code = re.match(r"- U\+([0-9A-Fa-f]{4,6})\b\s*(.*)", line)
+        literal = re.match(r"- `([^`]+)`\s*(.*)", line)
+        if code:
+            items.append((chr(int(code.group(1), 16)), code.group(2).strip() or f"U+{code.group(1).upper()}"))
+        elif literal:
+            items.append((literal.group(1), literal.group(2).strip() or repr(literal.group(1))))
+    return items
+
+
+def iter_text_files(paths: list[Path], rules_path: Path):
+    for base in paths:
+        files = [base] if base.is_file() else sorted(base.rglob("*"))
+        for f in files:
+            if not f.is_file() or f.suffix.lower() not in TEXT_EXT or f.resolve() == rules_path.resolve():
+                continue
+            if any(part in SKIP_DIRS for part in f.parts):
+                continue
+            yield f
+
+
+def cmd_rules_check(args: argparse.Namespace) -> None:
+    root = Path(args.root).resolve()
+    rules_path = Path(args.rules).resolve() if args.rules else root / "rules.md"
+    if not rules_path.exists():
+        fail(f"ไม่เจอ {rules_path} ให้สร้าง rules.md จาก references/rules-template.md ก่อน")
+    forbidden = load_forbidden(rules_path)
+    if not forbidden:
+        fail(f"ใน {rules_path.name} ไม่มีหัวข้อ '## Forbidden text' หรือหัวข้อนั้นว่าง")
+    targets = [Path(p).resolve() for p in (args.paths or ["."])]
+    missing = [str(t) for t in targets if not t.exists()]
+    if missing:
+        fail(f"ไม่เจอ path: {', '.join(missing)}")
+
+    hits = []
+    checked = 0
+    for f in iter_text_files(targets, rules_path):
+        checked += 1
+        try:
+            lines = f.read_text(encoding="utf-8").splitlines()
+        except UnicodeDecodeError:
+            continue
+        for n, line in enumerate(lines, 1):
+            for needle, reason in forbidden:
+                col = line.find(needle)
+                if col >= 0:
+                    hits.append((f, n, col + 1, reason, line.strip()))
+
+    if not hits:
+        print(f"✅ ผ่าน rules.md ทั้ง {checked} ไฟล์ ({len(forbidden)} กฎ)")
+        print("RULES=pass")
+        return
+    print(f"❌ ไม่ผ่าน rules.md: เจอ {len(hits)} จุดใน {len({h[0] for h in hits})} ไฟล์")
+    for f, n, col, reason, text in hits[:200]:
+        rel = f.relative_to(root) if f.is_relative_to(root) else f
+        print(f"   {rel}:{n}:{col} {reason} | {text[:100]}")
+    print("RULES=fail")
+    sys.exit(1)
+
+
+# 7. status: สรุปทุก run ที่เคยบันทึกไว้
 def cmd_status(args: argparse.Namespace) -> None:
     root = Path(args.root).resolve()
     config = load_config(root)
@@ -342,7 +419,7 @@ def cmd_status(args: argparse.Namespace) -> None:
     print(f"RUNS_SINCE_DREAM={pending}")
 
 
-# 7. ตั้งค่า argument parser
+# 8. ตั้งค่า argument parser
 def main() -> None:
     parser = argparse.ArgumentParser(description="temper bookkeeping")
     parser.add_argument("--root", default=".", help="project root (default: current directory)")
@@ -375,6 +452,11 @@ def main() -> None:
     p_done = sub.add_parser("dream-done", help="close a dream after applying the accepted changes")
     p_done.add_argument("dream_id")
     p_done.set_defaults(func=cmd_dream_done)
+
+    p_rules = sub.add_parser("rules-check", help="scan files for text that rules.md forbids")
+    p_rules.add_argument("paths", nargs="*", help="files or folders to scan (default: project root)")
+    p_rules.add_argument("--rules", help="path to rules.md (default: <root>/rules.md)")
+    p_rules.set_defaults(func=cmd_rules_check)
 
     p_status = sub.add_parser("status", help="show results so far")
     p_status.set_defaults(func=cmd_status)

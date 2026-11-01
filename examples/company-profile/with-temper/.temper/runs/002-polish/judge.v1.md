@@ -41,7 +41,7 @@ Evidence:
 - Initial state: `{"exp":"false","controls":"site-nav","navTag":"NAV","navShown":false}`.
 - Click 1 gives `exp:"true", navShown:true` and click 2 gives `exp:"false", navShown:false`. Enter toggles true then false. Space toggles true then false.
 - With the menu open, I tabbed into the nav (focus on "บริการ") and pressed Escape: `{"exp":"false","navShown":false,"focus":"menu-toggle"}`.
-- Breakpoint: at 767 px it is `{"btn":"flex","nav":"none"}`; at 768 px it is `{"btn":"none","nav":"block"}` and all six links sit on one row with no overlap (brand 20–236, links 277–748).
+- Breakpoint: at 767 px it is `{"btn":"flex","nav":"none"}`; at 768 px it is `{"btn":"none","nav":"block"}` and all six links sit on one row with no overlap (brand 20-236, links 277-748).
 - At 1280 px: `{"btn":"none","btnW":0}` and all six links are visible.
 - Extras: clicking a nav link closes the menu, and the target section lands right under the sticky header (team top 64.98 px, header 65 px). Clicking outside the header also closes it.
 
@@ -111,7 +111,7 @@ Nits I saw (none of them is a failure on its own):
 2. Dark mode loses most of its structure. The alternating section bands (#1b1410 against #15100c), the footer (#0c0907) and the hero hills are nearly the same colour, so the sections run together. Light mode separates them clearly.
 3. At 360/375 px the hero lead leaves "และออฟฟิศ" alone on a third line.
 4. At 375 px two headings break with a short first line: "จากดอยถึง / ร้านคุณใน 4 ขั้นตอน" and "คุยกับเรา / เรื่องกาแฟของร้านคุณ". The balance is top-light, though the breaks fall at word boundaries.
-5. On mobile, the service descriptions wrap at about 60–70% of the card width (for example "คั่วตามโปรไฟล์ที่ร้านเลือก / ส่งทุกสัปดาห์" and "ตรวจเช็คและปรับตั้ง / เครื่องชงถึงหน้าร้าน"), which leaves a lot of empty space on the right of each card. This is deliberate clause-breaking but looks ragged.
+5. On mobile, the service descriptions wrap at about 60-70% of the card width (for example "คั่วตามโปรไฟล์ที่ร้านเลือก / ส่งทุกสัปดาห์" and "ตรวจเช็คและปรับตั้ง / เครื่องชงถึงหน้าร้าน"), which leaves a lot of empty space on the right of each card. This is deliberate clause-breaking but looks ragged.
 6. At 1024 px the About paragraph breaks "รับซื้อเมล็ด / ตรงจาก…", splitting the phrase "รับซื้อเมล็ดตรง" across lines.
 7. At 1280 px the contact h2 wraps to "คุยกับเราเรื่องกาแฟ / ของร้านคุณ", and the left contact column ends far above the form, leaving a large empty block under the contact list.
 8. On desktop, process steps 1 and 2 (one line of text) and testimonials 1 and 3 (two lines, next to a three-line middle quote) have visible empty space at the bottom of their equal-height cards.
@@ -120,9 +120,9 @@ Nits I saw (none of them is a failure on its own):
 11. On mobile, the open menu panel uses the page background with a shadow that disappears in dark mode, so the panel blends into the hero. Only the 1 px bottom border separates it. The links have no dividers.
 12. On the 404 page, "กลับสู่หน้าแรก" appears twice (the button and the footer link). The page is also about 47 px taller than a 1280×1000 viewport even though the content is short, so it always scrolls a little.
 13. The favicon (a coffee bean on a rust square) does not match the header brand mark (mountains and sun).
-14. At 768–959 px the hero has no side card, so the right half of the hero is empty under the gradient. This is acceptable but looks a little sparse.
+14. At 768-959 px the hero has no side card, so the right half of the hero is empty under the gradient. This is acceptable but looks a little sparse.
 
 ## Other observations
-- All must-haves R1–R15 hold under my own extra inputs: more viewports (320–1440 px), Space-key toggling, outside-click and link-click menu closing, malformed emails, whitespace-only messages, reserved characters in the mailto body, and axe runs in the error, menu-open and 404 states. I found no must-have broken.
+- All must-haves R1-R15 hold under my own extra inputs: more viewports (320-1440 px), Space-key toggling, outside-click and link-click menu closing, malformed emails, whitespace-only messages, reserved characters in the mailto body, and axe runs in the error, menu-open and 404 states. I found no must-have broken.
 - The page works without JS: a `<noscript>` style shows the nav and hides the toggle.
 - No files in the site were modified. All scratch files are in /tmp/judge3. I found an older /tmp/judge folder from an earlier run and did not use its scripts.

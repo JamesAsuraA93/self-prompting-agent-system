@@ -74,7 +74,7 @@ A lesson that no run cited is not stale on that basis alone: a lesson that preve
 
 ## Proposal format
 
-Write `proposal.md` in the dream directory:
+Write `proposal.md` in the dream directory, following `rules.md` like every other file Temper writes:
 
 ```markdown
 # Dream <dream-id>

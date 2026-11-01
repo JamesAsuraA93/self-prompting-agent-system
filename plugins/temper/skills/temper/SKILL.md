@@ -35,6 +35,7 @@ Merging them is how a loop ends up grading its own homework and reporting succes
 ```
 <project root>/
   reqs.md                     human-owned spec (need.md, needs.md, requirements.md also accepted)
+  rules.md                    human-owned house rules that apply to every output and every Temper file
   .temper/
     config.json               max iterations and other settings (written by the script)
     learnings.md              lessons that carry across runs
@@ -104,6 +105,16 @@ Keep them, but tag them `[judgment]`.
 The judge still grades them with a short rationale.
 They never outweigh a hard criterion, but a failed one is not ignored either: see `pass_with_advisory` under Stop rules.
 
+### Rules file
+
+Every project with a reqs file also has a `rules.md` beside it.
+If it is missing, create it from `references/rules-template.md`, show it to the user, and ask what to add before the first run.
+Rules hold for every task in the project: forbidden characters, voice, language, naming, comment style.
+They are separate from reqs.md because they do not change from task to task, and mixing them in would make every reqs file repeat them.
+
+Rules bind Temper itself as much as the executor.
+Every file Temper writes (prompts, verdicts, diagnoses, lessons, dream proposals, reports) follows them, and text quoted from a verdict into a prompt is cleaned to follow them too.
+
 ## Step 2: Compile the prompt
 
 Set up the run:
@@ -118,6 +129,7 @@ python3 <skill-dir>/scripts/temper.py new-run
 Pass `--max N` to `init` if the user asked for a different iteration limit (default 3).
 
 Read `references/compiler.md` and write `prompt.v1.md` in the run directory.
+Copy `rules.md` into the prompt verbatim under a `## House rules` heading.
 Before writing, gather the concrete facts the executor will need: stack, file paths, commands for tests and lint, conventions.
 Spending time here is the cheapest way to save an iteration later.
 
@@ -144,6 +156,15 @@ Do not give it the prompt, and tell it not to read anything in `.temper/` except
 The judge writes `judge.vN.md` with a verdict for every criterion: PASS, FAIL, or UNCLEAR, each with evidence.
 For any criterion that a command can check, such as tests, lint, a build, or a file existing, the judge has to run the command and quote the result instead of reasoning about it.
 UNCLEAR counts as a failure for the decision, because an unproven criterion is not a met one.
+
+The judge also checks the output against `rules.md`, and it runs the mechanical part itself:
+
+```bash
+python3 <skill-dir>/scripts/temper.py rules-check <output paths>
+```
+
+Any rule violation is a hard failure, recorded with the id `RULES` and counted in `--total` as one extra criterion.
+After the judge finishes, run `rules-check` on the run directory as well, so Temper's own files are held to the same rules.
 
 Then record the result:
 

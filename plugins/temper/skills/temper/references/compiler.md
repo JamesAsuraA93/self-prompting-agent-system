@@ -8,6 +8,9 @@ Write for that reader.
 
 reqs.md, in full.
 
+rules.md, in full.
+It goes into the prompt verbatim, and the prompt itself has to obey it.
+
 `.temper/learnings.md`, in full.
 Carry over only the lessons that apply to this task.
 
@@ -80,6 +83,9 @@ Skip a section when there is nothing true to put in it.
 ## Acceptance criteria
 <Verbatim from reqs.md, with ids.>
 
+## House rules
+<rules.md, verbatim. Every file you produce must follow these.>
+
 ## Lessons from earlier runs
 <Only the learnings that apply to this task.>
 
@@ -95,5 +101,6 @@ For each one, report PASS or FAIL and how you checked it, running the command wh
 ## Rewriting for the next version
 
 Start from the previous prompt and change only what the diagnosis calls for.
+When you quote a verdict or review note into the prompt, clean any text that breaks `rules.md`, for example replacing a forbidden dash with a plain hyphen, so the prompt never models what the rules forbid.
 Keep the sections that produced passing criteria as they were.
 When a fix adds an instruction, put it where the executor will read it at the moment it matters, usually in Context or next to the related requirement, and also in the "Before you finish" list if it was missed last time.

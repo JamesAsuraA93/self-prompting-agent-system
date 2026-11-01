@@ -36,10 +36,16 @@ Acceptance criteria are usually examples, not the whole contract.
 After grading them, test each must-have requirement (R1, R2, ...) with inputs you construct yourself, not only the examples the criteria name, and report any requirement that is not met.
 A broken must-have counts as a failure even when every listed criterion passes; record it by its requirement id.
 
+Then check the output against `rules.md` in the project root.
+Run `python3 <skill-dir>/scripts/temper.py rules-check <output paths>` for the mechanical rules and read the output for the rest.
+Any violation is a FAIL recorded under the id `RULES`, with the file, line and rule.
+
 If the requirements themselves are ambiguous about a criterion, say so in that criterion's entry.
 That observation is valuable: it tells the loop to fix the requirements instead of the prompt.
 
 ## What to write
+
+Your verdict file follows `rules.md` too.
 
 ```markdown
 # Verdict
@@ -47,6 +53,7 @@ That observation is valuable: it tells the loop to fix the requirements instead 
 Hard criteria: <passed> of <total> passed
 Failed or unclear: <ids, comma separated, or "none">
 Must-have requirements not met: <ids, or "none">
+House rules: PASS or FAIL, with each violation
 
 ## AC1: <criterion text>
 Verdict: PASS

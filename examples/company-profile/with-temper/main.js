@@ -84,6 +84,19 @@
     }
   }
 
+  // Focus the first bad field and make sure its label is not left under the
+  // sticky header (focus() alone only scrolls the input itself into view).
+  function revealField(field) {
+    var wrap = field.closest(".field") || field;
+    var header = document.querySelector(".site-header");
+    var top = header ? header.getBoundingClientRect().bottom : 0;
+    var box = wrap.getBoundingClientRect();
+    field.focus({ preventScroll: true });
+    if (box.top < top + 8 || box.bottom > window.innerHeight) {
+      wrap.scrollIntoView({ block: "start" });
+    }
+  }
+
   function validate(field) {
     var message = rules[field.name](field.value.trim());
     showError(field, message);
@@ -112,7 +125,7 @@
     });
 
     if (firstInvalid) {
-      firstInvalid.focus();
+      revealField(firstInvalid);
       return;
     }
 

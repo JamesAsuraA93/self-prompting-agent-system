@@ -2,6 +2,23 @@
    Palette from the hill: morning mist, ripe coffee cherry, green bean,
    kraft lot tags, forest on the slope, dark roast. */
 
+/* Latin partner for Noto Sans Thai, which has no Latin glyphs on Linux.
+   local() only: nothing is downloaded, and if Noto Sans is not installed the
+   face is skipped and the next family in --font is used. */
+@font-face {
+  font-family: "DPH Latin";
+  src: local("Noto Sans"), local("Noto Sans Regular"), local("NotoSans-Regular");
+  font-weight: 100 549;
+  unicode-range: U+0000-024F, U+2000-206F;
+}
+
+@font-face {
+  font-family: "DPH Latin";
+  src: local("Noto Sans Bold"), local("NotoSans-Bold");
+  font-weight: 550 900;
+  unicode-range: U+0000-024F, U+2000-206F;
+}
+
 :root {
   color-scheme: light dark;
 
@@ -22,7 +39,8 @@
 
   /* Accents */
   --cherry: #a8283b;
-  --cherry-deep: #85192b;
+  --fill: #a8283b;
+  --fill-hover: #85192b;
   --on-accent: #f8f6ee;
   --bean: #6f8560;
   --error: #b01e2f;
@@ -45,14 +63,28 @@
   --footer-ink: #efe6d8;
   --footer-muted: #c9b9a3;
 
+  --process-drop: rgba(220, 192, 140, 0.5);
+  --footer-rim: #a88a5c;
+  --table: #c9a77a;
+  --table-grain: rgba(92, 58, 26, 0.08);
+  --table-edge: #a8845a;
+
   --header-bg: rgba(244, 243, 236, 0.92);
   --menu-bg: #fbfbf7;
-  --focus: var(--cherry);
+  --card-edge: var(--line);
+  /* Focus is forest green, never the error red, so a focused invalid field
+     still shows both states. */
+  --focus: #2d5a3d;
   --shadow-tag: 0 1px 1px rgba(42, 29, 18, 0.12), 0 14px 30px -8px rgba(42, 29, 18, 0.28);
 
   /* Type */
-  --font: "Noto Sans Thai", "Noto Sans Thai UI", "IBM Plex Sans Thai", "Sukhumvit Set", "Thonburi",
-    "Leelawadee UI", "Leelawadee", "Sarabun", "Tahoma", system-ui, sans-serif;
+  /* Thai faces that carry their own Latin come first, so "กาแฟ Private Label"
+     is drawn by one font. Noto Sans Thai ships without Latin on Linux, so it is
+     followed by its Latin partner (DPH Latin, below), then by Thai fonts with
+     Latin glyphs found on Linux. */
+  --font: "Sukhumvit Set", "Thonburi", "Leelawadee UI", "Leelawadee", "IBM Plex Sans Thai",
+    "Noto Sans Thai", "Noto Sans Thai UI", "DPH Latin", "Loma", "Garuda", "Sarabun", "Tahoma",
+    system-ui, sans-serif;
   --mono: ui-monospace, "SFMono-Regular", "SF Mono", Menlo, Consolas, "DejaVu Sans Mono", monospace;
   --fs-small: 0.9375rem;
   --fs-body: 1.0625rem;
@@ -95,16 +127,19 @@
     --kraft-band: #231d15;
     --forest: #1b3a29;
     --roast: #2a1c12;
-    --surface: #1b251e;
+    --surface: #2a382e;
 
     --ink: #e8ebe2;
     --muted: #aab6aa;
     --line: #2f3d33;
     --line-strong: #6e8071;
 
-    --cherry: #f08494;
-    --cherry-deep: #f6a5b1;
-    --on-accent: #22090e;
+    /* Ripe cherry, not candy pink: a deep red fill with light text, and a
+       brighter red only where the accent is a line or large type. */
+    --cherry: #e85d6f;
+    --fill: #b3293c;
+    --fill-hover: #c73a4e;
+    --on-accent: #fbf1ec;
     --bean: #4f6a4c;
     --error: #ff9d92;
 
@@ -117,12 +152,19 @@
     --process-muted: #b3c6b4;
     --process-curve: #d9bd87;
     --process-grid: rgba(238, 240, 232, 0.12);
-    --marker: #e8687b;
+    --marker: #c43d51;
     --footer-ink: #eadfce;
     --footer-muted: #c4b39b;
+    --process-drop: rgba(217, 189, 135, 0.45);
+    --footer-rim: #9a7f53;
+    --table: #4a3624;
+    --table-grain: rgba(0, 0, 0, 0.14);
+    --table-edge: #6b5034;
+    --focus: #e3c27e;
 
     --header-bg: rgba(17, 24, 19, 0.9);
     --menu-bg: #1d2a21;
+    --card-edge: #3f5045;
     --shadow-tag: 0 1px 1px rgba(0, 0, 0, 0.4), 0 18px 34px -8px rgba(0, 0, 0, 0.65);
   }
 }
@@ -137,7 +179,7 @@
 html {
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
-  scroll-padding-top: var(--header-h);
+  scroll-padding-top: calc(var(--header-h) + 1px);
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -273,7 +315,7 @@ main:focus {
   flex: none;
   width: 38px;
   height: 38px;
-  color: var(--cherry);
+  color: var(--fill);
 }
 
 .brand-text {
@@ -388,14 +430,14 @@ main:focus {
     padding: var(--s-3) var(--s-4);
     border-top: 0;
     border-radius: var(--radius);
-    background: var(--cherry);
+    background: var(--fill);
     color: var(--on-accent);
     text-align: center;
     font-weight: 600;
   }
 
   .site-nav li:last-child a.nav-cta:hover {
-    background: var(--cherry-deep);
+    background: var(--fill-hover);
   }
 }
 
@@ -427,13 +469,13 @@ main:focus {
     margin-left: var(--s-2);
     padding: var(--s-2) var(--s-4);
     border-radius: var(--radius);
-    background: var(--cherry);
+    background: var(--fill);
     color: var(--on-accent);
     font-weight: 600;
   }
 
   .site-nav a.nav-cta:hover {
-    background: var(--cherry-deep);
+    background: var(--fill-hover);
     color: var(--on-accent);
   }
 }
@@ -445,24 +487,35 @@ main:focus {
 }
 
 @media (min-width: 768px) and (max-width: 959.98px) {
-  .brand-sub {
-    display: none;
+  .brand {
+    gap: var(--s-2);
+  }
+
+  .brand-mark {
+    width: 34px;
+    height: 34px;
   }
 
   .brand-name {
     font-size: 0.9375rem;
   }
 
+  .brand-sub {
+    font-size: 0.625rem;
+    letter-spacing: 0.04em;
+  }
+
   .site-nav ul {
-    gap: 0;
+    gap: var(--s-1);
   }
 
   .site-nav a {
-    padding-inline: 5px;
+    padding-inline: var(--s-2);
     font-size: 0.875rem;
   }
 
   .site-nav a.nav-cta {
+    margin-left: var(--s-1);
     padding-inline: var(--s-3);
   }
 }
@@ -501,12 +554,12 @@ main:focus {
 }
 
 .btn-primary {
-  background: var(--cherry);
+  background: var(--fill);
   color: var(--on-accent);
 }
 
 .btn-primary:hover {
-  background: var(--cherry-deep);
+  background: var(--fill-hover);
 }
 
 .btn-ghost {
@@ -545,7 +598,7 @@ main:focus {
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background: var(--cherry);
+  background: var(--fill);
   box-shadow: inset -2px -2px 0 rgba(0, 0, 0, 0.18);
 }
 
@@ -585,11 +638,6 @@ main:focus {
   opacity: 0.7;
 }
 
-.topo-peak {
-  display: none;
-  fill: var(--cherry);
-}
-
 @media (max-width: 767.98px) {
   .topo-lines {
     opacity: 0.55;
@@ -604,19 +652,12 @@ main:focus {
 
 .eyebrow {
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
-  gap: var(--s-1) var(--s-3);
+  gap: var(--s-3);
   margin-bottom: var(--s-4);
   color: var(--muted);
   font-size: var(--fs-small);
   font-weight: 600;
-}
-
-.eyebrow-sep {
-  width: 24px;
-  height: 1.5px;
-  background: currentColor;
 }
 
 .hero h1 {
@@ -655,6 +696,15 @@ main:focus {
   .hero-actions .btn {
     flex: 1 1 100%;
   }
+}
+
+/* A short rule before the eyebrow, like the start of a contour line */
+.eyebrow::before {
+  content: "";
+  flex: none;
+  width: 24px;
+  height: 1.5px;
+  background: var(--cherry);
 }
 
 /* Lot tag: the kraft label tied to every bag */
@@ -785,6 +835,57 @@ main:focus {
   font-size: var(--fs-small);
 }
 
+/* Phones: the tag turns landscape, its three fields side by side, so the
+   first scroll shows the CTAs and the whole tag in less height. */
+@media (max-width: 767.98px) {
+  .tag {
+    padding: 40px var(--s-4) var(--s-4);
+  }
+
+  .tag-fields {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    justify-content: space-between;
+    column-gap: var(--s-3);
+    border-bottom: 1px dashed var(--tag-line);
+  }
+
+  .tag-fields div {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: var(--s-1);
+    padding-block: var(--s-3);
+    border-bottom: 0;
+  }
+
+  .tag-fields dt {
+    font-size: 0.8125rem;
+    line-height: 1.4;
+  }
+
+  .tag-fields dd {
+    font-size: 1rem;
+    line-height: 1.3;
+  }
+
+  .tag-fields .num {
+    font-size: 1.25rem;
+  }
+
+  .tag-fields .unit {
+    font-size: 0.8125rem;
+  }
+
+  .tag-order {
+    margin-top: var(--s-3);
+  }
+
+  .tag-phone {
+    font-size: 1.625rem;
+  }
+}
+
 /* Ridge: the hero ends on the skyline of the hills */
 .ridge {
   position: absolute;
@@ -885,42 +986,32 @@ main:focus {
   }
 }
 
-/* About: one statement and a short ledger */
+/* About: the name, then one statement */
+.about {
+  padding-bottom: var(--s-7);
+}
+
 .about-grid {
   display: grid;
-  gap: var(--s-7);
+  gap: var(--s-5);
 }
 
 .about-text {
   max-width: 40rem;
-  margin-top: var(--s-5);
   font-size: var(--fs-statement);
   line-height: 1.6;
 }
 
-.facts div {
-  display: grid;
-  gap: var(--s-1);
-  padding-block: var(--s-4);
-  border-top: 1px solid var(--line);
-}
-
-.facts dt {
-  color: var(--muted);
-  font-size: var(--fs-small);
-}
-
-.facts dd {
-  font-size: 1.25rem;
-  font-weight: 700;
-  line-height: 1.5;
-}
-
 @media (min-width: 960px) {
   .about-grid {
-    grid-template-columns: minmax(0, 7fr) minmax(0, 4fr);
+    grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
     gap: var(--s-8);
-    align-items: end;
+    align-items: start;
+  }
+
+  /* The statement's first line sits on the heading's first line */
+  .about-text {
+    padding-top: calc(var(--fs-small) * 1.75 + var(--s-3));
   }
 }
 
@@ -933,7 +1024,7 @@ main:focus {
   position: relative;
   display: grid;
   gap: var(--s-6);
-  padding-top: var(--section-pad);
+  padding-top: var(--s-7);
 }
 
 /* Rule between about and services, aligned to the content edges */
@@ -1081,12 +1172,6 @@ main:focus {
   line-height: 1.55;
 }
 
-@media (prefers-color-scheme: dark) {
-  .step-num {
-    color: #1a0a0d;
-  }
-}
-
 @media (min-width: 768px) {
   .roast-chart {
     display: block;
@@ -1135,10 +1220,11 @@ main:focus {
     transform: translate(-50%, -50%);
   }
 
+  /* Every label is two lines: each phrase is a nowrap chunk and the label
+     is only as wide as its widest chunk, so it breaks between them. */
   .step p {
-    max-width: 14rem;
+    width: min-content;
     margin-inline: auto;
-    text-wrap: balance;
   }
 
   /* Drop line from the curve point to the label */
@@ -1148,7 +1234,38 @@ main:focus {
     top: calc(var(--y) + 26px);
     bottom: calc(100% - 150px - var(--s-5));
     left: 50%;
-    border-left: 1px dashed var(--process-grid);
+    border-left: 1px dashed var(--process-drop);
+  }
+
+  /* The curve starts at charge (hollow) and ends at the drop (filled) */
+  .roast::before,
+  .roast::after {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    width: 10px;
+    height: 10px;
+    border: 2px solid var(--process-curve);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .roast::before {
+    top: 44px;
+    left: 1.6%;
+    background: var(--forest);
+  }
+
+  .roast::after {
+    top: 18px;
+    left: 98.4%;
+    background: var(--process-curve);
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023.98px) {
+  .step p {
+    font-size: 1rem;
   }
 }
 
@@ -1175,17 +1292,23 @@ main:focus {
   font-size: var(--fs-small);
 }
 
+.crew {
+  --cup: 84px;
+}
+
+/* The porcelain ring reaches 10px past the cup, so the cup sits 10px in
+   and the ring's outer edge lines up with the name below. */
 .cup {
   position: relative;
   display: grid;
   place-items: center;
-  width: 84px;
-  height: 84px;
-  margin-left: 8px;
+  width: var(--cup);
+  height: var(--cup);
+  margin-left: 10px;
   border-radius: 50%;
   background: radial-gradient(circle at 46% 42%, #6b4330 0 30%, var(--coffee) 62%);
   color: var(--crema);
-  font-size: 1.375rem;
+  font-size: calc(var(--cup) * 0.26);
   font-weight: 700;
   letter-spacing: 0.02em;
   box-shadow:
@@ -1210,10 +1333,56 @@ main:focus {
   background: var(--porcelain);
 }
 
+/* Tablet and up: four cups set out on one cupping table */
 @media (min-width: 768px) {
   .crew {
+    --cup: 92px;
+    --table-h: calc(var(--cup) + 2 * var(--s-7));
+    position: relative;
     grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--s-5);
+    padding-inline: var(--s-5);
+  }
+
+  .crew::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: var(--table-h);
+    border-radius: 8px;
+    background:
+      repeating-linear-gradient(0deg, transparent 0 calc(var(--table-h) / 3 - 1px), var(--table-grain) calc(var(--table-h) / 3 - 1px) calc(var(--table-h) / 3)),
+      repeating-linear-gradient(178deg, transparent 0 9px, var(--table-grain) 9px 10px, transparent 10px 23px),
+      var(--table);
+    box-shadow: inset 0 -4px 0 var(--table-edge);
+  }
+
+  .member {
+    position: relative;
+    text-align: center;
+  }
+
+  .cup {
+    margin: var(--s-7) auto 0;
+    box-shadow:
+      0 0 0 3px #c99d6b,
+      0 0 0 9px var(--porcelain),
+      0 0 0 10px var(--line-strong),
+      5px 9px 16px 8px rgba(0, 0, 0, 0.22);
+  }
+
+  .member h3 {
+    margin-top: calc(var(--s-7) + var(--s-5));
+  }
+}
+
+@media (min-width: 1024px) {
+  .crew {
+    --cup: 112px;
     gap: var(--s-6);
+    padding-inline: var(--s-6);
   }
 }
 
@@ -1250,8 +1419,16 @@ main:focus {
   font-weight: 800;
 }
 
+/* Every open quote hangs in the margin, so the text of all three quotes
+   starts on the same edge as the heading. The glyph sits at the right of a
+   fixed box, whatever its width in the visitor's font. */
 .q-open {
-  margin-right: 0.08em;
+  display: inline-block;
+  width: 0.5em;
+  margin-left: -0.5em;
+  padding-right: 0.08em;
+  text-align: right;
+  text-indent: 0;
 }
 
 .q-close {
@@ -1290,12 +1467,6 @@ main:focus {
     font-size: 2.125rem;
   }
 
-  .quote-lead .q-open {
-    display: inline-block;
-    margin-left: -0.5em;
-    width: 0.5em;
-  }
-
   .quote:not(.quote-lead) + .quote {
     padding-bottom: 0;
   }
@@ -1314,11 +1485,6 @@ main:focus {
 .contact-grid {
   display: grid;
   gap: var(--s-7);
-}
-
-.contact-info {
-  display: flex;
-  flex-direction: column;
 }
 
 .contact-lead {
@@ -1389,7 +1555,7 @@ main:focus {
   position: relative;
   padding: var(--s-6) var(--s-5) var(--s-5);
   background: var(--surface);
-  border: 1px solid var(--line);
+  border: 1px solid var(--card-edge);
   border-radius: 10px;
 }
 
@@ -1416,6 +1582,8 @@ main:focus {
 
 .field {
   margin-bottom: var(--s-4);
+  /* With html's scroll-padding this keeps the label clear of the header */
+  scroll-margin-top: var(--s-5);
 }
 
 .field label {
@@ -1451,7 +1619,7 @@ main:focus {
 
 .field input:focus-visible,
 .field textarea:focus-visible {
-  border-color: var(--cherry);
+  border-color: var(--focus);
   outline-offset: 1px;
 }
 
@@ -1506,12 +1674,11 @@ main:focus {
   .contact-grid {
     grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
     gap: var(--s-8);
-    align-items: stretch;
+    align-items: start;
   }
 
   .contact-list {
-    margin-top: auto;
-    padding-top: var(--s-6);
+    margin-top: var(--s-7);
   }
 
   .contact-form {
@@ -1541,7 +1708,20 @@ main:focus {
   bottom: calc(100% - 1px);
   width: 100%;
   height: 32px;
+  overflow: visible;
+}
+
+.footer-ridge-fill {
   fill: var(--roast);
+}
+
+/* A kraft rim on the skyline keeps the hills visible in the dark theme,
+   where the roast and the contact band are close in value. */
+.footer-ridge-rim {
+  fill: none;
+  stroke: var(--footer-rim);
+  stroke-width: 1.5;
+  vector-effect: non-scaling-stroke;
 }
 
 .footer-inner {
@@ -1638,13 +1818,48 @@ main:focus {
   gap: var(--s-4);
 }
 
+/* 404 drawn as two fours around a cup seen from above, the same cup that
+   holds the team's initials. */
 .notfound-code {
-  font-family: var(--mono);
+  display: flex;
+  align-items: center;
   font-size: clamp(4.5rem, 3rem + 7vw, 8rem);
-  font-weight: 700;
+  font-weight: 800;
   line-height: 1;
-  letter-spacing: -0.05em;
   color: var(--cherry);
+}
+
+.nf-digit:first-child {
+  margin-left: -0.02em;
+}
+
+.nf-cup {
+  position: relative;
+  flex: none;
+  width: 0.56em;
+  height: 0.56em;
+  margin: 0 0.32em 0 0.16em;
+  border-radius: 50%;
+  background: radial-gradient(circle at 46% 42%, #6b4330 0 30%, var(--coffee) 62%);
+  box-shadow:
+    0 0 0 0.025em #c99d6b,
+    0 0 0 0.075em var(--porcelain),
+    0 0 0 calc(0.075em + 1px) var(--line-strong),
+    0.04em 0.07em 0.12em 0.04em rgba(0, 0, 0, 0.16);
+}
+
+.nf-cup::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: -0.2em;
+  width: 0.13em;
+  height: 0.09em;
+  margin-top: -0.045em;
+  border: 1px solid var(--line-strong);
+  border-left: 0;
+  border-radius: 0 0.05em 0.05em 0;
+  background: var(--porcelain);
 }
 
 .notfound h1 {
@@ -1669,10 +1884,6 @@ main:focus {
 /* 404: the hills run straight into the footer */
 .page-404 .ridge-front {
   fill: var(--roast);
-}
-
-.page-404 .footer-ridge {
-  display: none;
 }
 
 /* Reduced motion: nothing animates or transitions */
