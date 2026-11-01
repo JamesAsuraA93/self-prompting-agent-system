@@ -1,2 +1,4 @@
 {"run": "001", "version": 1, "total": 14, "passed": 14, "failed": [], "advisory_total": 1, "advisory_passed": 0, "advisory_failed": ["AC15"], "at": "2026-11-01T17:05:14+00:00", "decision": "pass_with_advisory", "best_version": 1}
 {"run": "001", "version": 2, "total": 14, "passed": 14, "failed": [], "advisory_total": 1, "advisory_passed": 1, "advisory_failed": [], "at": "2026-11-01T17:18:56+00:00", "decision": "stop_pass", "best_version": 2}
+{"run": "002-polish", "version": 1, "total": 14, "passed": 14, "failed": [], "advisory_total": 1, "advisory_passed": 1, "advisory_failed": [], "at": "2026-11-01T17:46:27+00:00", "decision": "stop_pass", "best_version": 1}
+{"run": "003-design", "version": 1, "total": 14, "passed": 14, "failed": [], "advisory_total": 3, "advisory_passed": 3, "advisory_failed": [], "at": "2026-11-01T18:15:26+00:00", "decision": "stop_pass", "best_version": 1}

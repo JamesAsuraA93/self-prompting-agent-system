@@ -60,6 +60,7 @@ Use these exactly. Do not invent other numbers, awards, clients or claims.
 - R13: With `prefers-reduced-motion: reduce`, nothing animates or transitions.
 - R14: Every script tag uses `defer` or `type="module"`.
 - R15: `404.html` is in Thai, matches the main site's look, and links back to `index.html`.
+- R16: The site has a design identity of its own that fits a small specialty roaster in the hills of Chiang Mai, not a generic landing-page template. Added after the first result, because the owner felt it looked like every other template. Taste has to come from composition, color, illustration and detail, since R1 and R2 rule out web fonts and image files.
 
 ## Constraints
 Plain HTML, CSS and JavaScript only.
@@ -81,6 +82,8 @@ A backend, a CMS, analytics, cookie banners, English translation, and deployment
 - AC10: An empty submit shows a Thai error for each of the three fields with `aria-invalid="true"` and `aria-describedby` pointing at the message, and the page does not navigate. A valid submit navigates to a `mailto:hello@doiphraohill.example` URL whose subject decodes to `ติดต่อจากเว็บไซต์` and whose body contains the typed message.
 - AC11: There are no `<img>` elements and no image files, and each team member's initials are shown.
 - AC12: With reduced motion emulated, no element has a non-zero transition or animation duration.
-- AC13: Every `<script>` has `defer` or `type="module"`.
+- AC13: Every executable `<script>` (anything except JSON-LD data blocks) has `defer` or `type="module"`.
 - AC14: `404.html` has `lang="th"`, uses `styles.css`, and links to `index.html`.
 - AC15: [judgment] At 375 px and 1280 px the page looks finished and intentional: consistent spacing, no overlapping or clipped text, comfortable Thai typography, clear visual hierarchy.
+- AC16: [judgment] A visitor would remember the site: a palette drawn from the subject, a type scale with real contrast, at least one distinctive visual element made in inline SVG or CSS, and sections whose layouts differ from each other instead of repeating one card grid.
+- AC17: [judgment] The details feel crafted in both themes: one spacing scale used consistently, edges that line up, hover and focus states that match the style, and a dark theme that is designed rather than inverted.

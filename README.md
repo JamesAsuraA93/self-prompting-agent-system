@@ -84,7 +84,13 @@ Everything Temper writes lives in `.temper/` in your project: prompts, verdicts,
 Honest answer so far: not when your requirements are already sharp.
 
 - [benchmark/](benchmark/) runs three tasks (Python, Node, Thai docs) with and without Temper, graded by hidden tests. Same scores, about 2.3x the tokens. The value showed up in the judge catching ambiguous requirements, which the tests do not measure.
-- [examples/company-profile/](examples/company-profile/) builds the same Thai company profile site twice from one `reqs.md`. Both pass all 35 automated checks; Temper's judge also caught Thai text breaking mid-word in the cards, and the loop fixed it in a second version, at about 3.6x the tokens. Every artifact of the loop is kept.
+- [examples/company-profile/](examples/company-profile/) builds the same Thai company profile site with a plain request and with Temper. Both pass all 35 automated checks. Temper's judge caught a Thai line-wrapping bug the builder missed, and when the owner asked for more taste, the loop absorbed it as a new requirement and redesigned the site. Every prompt and verdict is kept.
+
+Final result of that example, without and with Temper:
+
+| Without Temper | With Temper |
+|---|---|
+| ![Without Temper](examples/company-profile/screenshots/final-without-temper-hero.png) | ![With Temper](examples/company-profile/screenshots/final-with-temper-hero.png) |
 
 The loop is most useful where a single attempt tends to miss: vague requirements, larger tasks, and projects where the same mistakes repeat across runs.
 

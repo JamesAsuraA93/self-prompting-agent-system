@@ -1,5 +1,6 @@
 {
   "name": "temper",
+  "displayName": "Temper",
   "version": "0.1.0",
   "description": "Compile reqs.md into a prompt, run it with a fresh agent, grade it with a separate judge, rewrite until it passes, and dream over past runs to consolidate what was learned.",
   "author": {
@@ -8,5 +9,12 @@
   "homepage": "https://github.com/JamesAsuraA93/self-prompting-agent-system",
   "repository": "https://github.com/JamesAsuraA93/self-prompting-agent-system",
   "license": "MIT",
-  "keywords": ["prompt-engineering", "meta-prompting", "evaluation", "agents", "memory"]
+  "keywords": [
+    "prompt-engineering",
+    "meta-prompting",
+    "evaluation",
+    "agents",
+    "memory"
+  ],
+  "icon": "./.claude-plugin/icon.png"
 }
