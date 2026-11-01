@@ -1,0 +1,12 @@
+{
+  "name": "company-profile-checker",
+  "private": true,
+  "description": "Hidden acceptance checker used to grade both company profile sites",
+  "scripts": {
+    "check": "node check.cjs"
+  },
+  "dependencies": {
+    "axe-core": "4.10.2",
+    "playwright": "1.63.0"
+  }
+}

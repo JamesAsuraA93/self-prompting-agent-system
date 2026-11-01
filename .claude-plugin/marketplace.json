@@ -1,0 +1,14 @@
+{
+  "name": "asuraa93",
+  "description": "Claude Code plugins by AsuraA93",
+  "owner": {
+    "name": "AsuraA93"
+  },
+  "plugins": [
+    {
+      "name": "temper",
+      "source": "./plugins/temper",
+      "description": "Compile reqs.md into a prompt, run it with a fresh agent, grade it with a separate judge, rewrite until it passes, and dream over past runs to consolidate what was learned."
+    }
+  ]
+}

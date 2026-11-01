@@ -1,0 +1,9 @@
+{
+  "name": "duration",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "src/duration.js",
+  "scripts": {
+    "test": "node --test"
+  }
+}

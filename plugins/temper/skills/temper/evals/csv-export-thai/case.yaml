@@ -1,0 +1,6 @@
+schema_version: "1.1"
+name: csv-export-thai
+expected_outcome: |
+  export_orders_csv meets R1 to R13 of reqs.md: BOM, CRLF, RFC 4180 quoting, 2-decimal amounts, UTC timestamps, Bangkok-day date filter, cancelled excluded by default, stable sort, ValueError on bad status. Hidden pytest suite passes.
+context:
+  scaffold_script: place-files.sh

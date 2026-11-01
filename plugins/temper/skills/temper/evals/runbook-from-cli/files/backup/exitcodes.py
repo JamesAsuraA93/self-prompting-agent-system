@@ -1,0 +1,7 @@
+OK = 0
+# 2 is argparse's own usage error
+CONFIG_ERROR = 3
+STORAGE_UNREACHABLE = 4
+SNAPSHOT_NOT_FOUND = 5
+CHECKSUM_MISMATCH = 6
+LOCK_HELD = 7

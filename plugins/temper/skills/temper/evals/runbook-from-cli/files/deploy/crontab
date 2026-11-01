@@ -1,0 +1,2 @@
+# server clock is UTC
+17 2 * * * backup cd /opt/backup && python -m backup run --target all >> /var/log/backup.log 2>&1
