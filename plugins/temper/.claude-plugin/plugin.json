@@ -1,7 +1,7 @@
 {
   "name": "temper",
   "displayName": "Temper",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Compile reqs.md into a prompt, run it with a fresh agent, grade it with a separate judge, rewrite until it passes, and dream over past runs to consolidate what was learned.",
   "author": {
     "name": "AsuraA93"

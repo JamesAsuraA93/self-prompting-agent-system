@@ -6,7 +6,7 @@ Grading uses hidden tests that neither side saw, written before any run and vali
 The three code and docs tasks live in `plugins/temper/skills/temper/evals/<case>/files/`, their hidden tests in [`hidden/`](hidden/), and [`grade.py`](grade.py) applies them to an iteration folder laid out as `<case>/<with_skill|without_skill>/outputs/repo`.
 The fourth task is the [company profile example](../examples/company-profile/), graded by its own Playwright and axe-core checker.
 
-## Current results (Temper 0.1.0)
+## Current results (Temper 0.2.0)
 
 | Task | Plain request | Temper | Tokens, plain / Temper | Wall time, plain / Temper |
 |---|---|---|---|---|
