@@ -336,10 +336,13 @@ def load_forbidden(rules_path: Path) -> list[tuple[str, str]]:
         line = line.strip()
         if not line.startswith("- "):
             continue
-        code = re.match(r"- U\+([0-9A-Fa-f]{4,6})\b\s*(.*)", line)
+        # รองรับหลาย code point ต่อกันเป็นลำดับ เช่น U+0020 U+002D U+002D U+0020
+        code = re.match(r"- ((?:U\+[0-9A-Fa-f]{4,6}\s+)*U\+[0-9A-Fa-f]{4,6})\b\s*(.*)", line)
         literal = re.match(r"- `([^`]+)`\s*(.*)", line)
         if code:
-            items.append((chr(int(code.group(1), 16)), code.group(2).strip() or f"U+{code.group(1).upper()}"))
+            points = re.findall(r"U\+([0-9A-Fa-f]{4,6})", code.group(1))
+            needle = "".join(chr(int(cp, 16)) for cp in points)
+            items.append((needle, code.group(2).strip() or code.group(1)))
         elif literal:
             items.append((literal.group(1), literal.group(2).strip() or repr(literal.group(1))))
     return items

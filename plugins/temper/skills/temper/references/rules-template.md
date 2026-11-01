@@ -5,8 +5,8 @@
 Temper copies it into every prompt, the judge checks every output against it, and Temper's own files (prompts, verdicts, diagnoses, lessons, dream proposals) follow it too.
 
 Start a new `rules.md` from the block below, then ask the user what to add or remove.
-Keep the `## Forbidden text` section in this exact shape, because `temper.py rules-check` reads it: one bullet per item, either a Unicode code point written as `U+XXXX` or a literal sequence inside backticks, followed by a short reason.
-Write code points rather than the characters themselves, so the rules file never contains what it forbids.
+Keep the `## Forbidden text` section in this exact shape, because `temper.py rules-check` reads it: one bullet per item, written as one or more Unicode code points (`U+XXXX`, several in a row for a sequence) or a literal inside backticks, followed by a short reason.
+Write code points rather than the characters themselves, so neither the rules file nor this template contains what it forbids.
 
 ```markdown
 # Rules
@@ -15,7 +15,7 @@ Write code points rather than the characters themselves, so the rules file never
 - U+2014 em dash: reads as machine-written; use a plain hyphen, a colon, or restructure the sentence
 - U+2013 en dash: use a plain hyphen, or "to" in ranges
 - U+2015 horizontal bar: same as the em dash
-- ` -- ` spaced double hyphen used as a dash in prose: same as the em dash
+- U+0020 U+002D U+002D U+0020 spaced double hyphen used as a dash in prose: same as the em dash
 
 ## Writing
 - Prose follows the voice and language rules of this project.

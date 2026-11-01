@@ -17,7 +17,8 @@ The fourth task is the [company profile example](../examples/company-profile/), 
 | Total | 124/124 | 124/124 | 356k / 997k | |
 
 Temper's figures cover its executor and judge subagents, not the compile step in the main thread, so its real overhead is somewhat higher.
-For the company profile site the Temper figure is run 001 (two versions), the one built from the same requirements as the plain side; the later polish and design runs are described in that example.
+For the company profile site the Temper figure is run 001 (two versions), the one built from the same requirements as the plain side.
+The owner then asked for polish, more taste and house rules, and all four runs together came to 1.72M tokens and 96 minutes; the [example](../examples/company-profile/) shows each step and the final screenshots.
 
 Per-case artifacts for the three code and docs tasks are in [`iteration-2/`](iteration-2/): the compiled prompt, the judge's verdict, the diagnosis where there was one, and the hidden-test grading for both sides.
 
@@ -31,6 +32,7 @@ What it adds shows up outside the hidden tests:
 
 - On the site, the judge caught Thai text breaking mid-word in the cards, which the builder had introduced and missed in its own review, and the loop fixed it in a second version.
 - On the runbook, the judge failed AC3 and R3 on a strict reading: an uncaught crash exits with code 1, which the exit code table leaves out, and argparse's built-in `--help` is never mentioned. It called both requirements gaps, and the loop stopped to ask the owner instead of guessing ([diagnosis](iteration-2/runbook-from-cli/temper-run/runs/001/diagnosis.v1.md)).
+- Since `rules.md` was added, every Temper output and every file Temper writes is checked for forbidden text such as the em dash; the whole repository passes `temper.py rules-check`.
 - The judges also listed choices the requirements leave open, such as how amounts round and what an empty status list means in the CSV task, which an owner would want to settle before shipping.
 
 ## History

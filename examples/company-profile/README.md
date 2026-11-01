@@ -5,7 +5,7 @@ The company, people, address and phone number are invented, and the site says so
 
 - [`reqs.md`](reqs.md): the shared requirements, with company facts and 15 acceptance criteria
 - [`without-temper/`](without-temper/): built by one agent given only "Build what reqs.md in this folder asks for."
-- [`with-temper/`](with-temper/): built by the Temper loop over three runs, with every prompt, verdict and diagnosis kept in [`with-temper/.temper/`](with-temper/.temper/)
+- [`with-temper/`](with-temper/): built by the Temper loop over four runs, with every prompt, verdict and diagnosis kept in [`with-temper/.temper/`](with-temper/.temper/), and its house rules in [`with-temper/rules.md`](with-temper/rules.md)
 - [`checker/`](checker/): the hidden acceptance checker used to grade both, which neither builder saw
 
 ## Final result
@@ -32,13 +32,13 @@ Full page, desktop at 1280 px (scaled to half size) and mobile at 375 px:
 | ![Without Temper, mobile](screenshots/final-without-temper-mobile.png) | ![With Temper, mobile](screenshots/final-with-temper-mobile.png) |
 
 Both pass all 35 automated checks.
-The Temper site went through three runs and one extra requirement from the owner, so read the history below before comparing them like for like.
+The Temper site went through four runs and one extra requirement from the owner, so read the history below before comparing them like for like.
 
 ## How each side was built
 
 The plain side got one sentence and the folder, and finished in one pass.
 
-The Temper side went through the loop in [`SKILL.md`](../../plugins/temper/skills/temper/SKILL.md) three times.
+The Temper side went through the loop in [`SKILL.md`](../../plugins/temper/skills/temper/SKILL.md) four times.
 
 ### Run 001: build
 
@@ -69,7 +69,17 @@ The executor was pointed at the `frontend-design` skill: [`prompt.v1.md`](with-t
 The redesign added a contour map of the hill behind the hero, a kraft lot tag carrying the key numbers, the process drawn as a roast curve, team initials in espresso cups seen from above, and a different layout for every section.
 The judge passed all 14 hard criteria and AC15 to AC17: [`judge.v1.md`](with-temper/.temper/runs/003-design/judge.v1.md).
 
-Lessons from all three runs are in [`learnings.md`](with-temper/.temper/learnings.md).
+### Run 004: polish, with house rules
+
+The run 003 judge had listed 19 nits; the owner asked for all of them to be fixed.
+[`prompt.v1.md`](with-temper/.temper/runs/004-polish/prompt.v1.md) quotes every one, with the lessons from runs 001 to 003.
+The executor fixed 18 of them, among them the candy-pink red in dark mode, the near-invisible footer hills and form card, the label hidden under the sticky header, the empty contact column, the ragged process labels and the sparse team row, which now sits on a wooden cupping table.
+The one it could not fix needs web fonts, which R1 and R2 rule out.
+
+This run also introduced [`rules.md`](with-temper/rules.md), the project's house rules, starting with forbidden dashes.
+The judge checked the site and Temper's own files against it with `temper.py rules-check`, and everything passed: [`judge.v1.md`](with-temper/.temper/runs/004-polish/judge.v1.md).
+
+Lessons from all runs are in [`learnings.md`](with-temper/.temper/learnings.md).
 
 ## Results
 
@@ -78,32 +88,34 @@ Lessons from all three runs are in [`learnings.md`](with-temper/.temper/learning
 | Hidden checker (35 checks, AC1 to AC14) | 35/35 | 35/35 after every run |
 | AC15, looks finished | graded only by the builder itself | failed in run 001 v1, passed from v2 on |
 | Design identity (AC16, AC17, added in run 003) | not asked for | passed |
-| Runs and versions | 1 | 3 runs, 4 versions |
-| Tokens | 156k | 1.31M |
-| Wall time | 12 min | 73 min |
+| House rules (`rules.md`, added in run 004) | not checked | pass |
+| Runs and versions | 1 | 4 runs, 5 versions |
+| Tokens | 156k | 1.72M |
+| Wall time | 12 min | 96 min |
 
 On the first two runs, which shared the plain side's requirements, Temper cost about 3.6 times the tokens and produced the same automated score.
 What it added was a reviewer with fresh eyes, which caught a visual bug the builder had introduced and missed in its own review.
-The bigger difference in the final screenshots comes from run 003, where the owner raised the bar and the loop had a way to absorb that: a new requirement, a judge that grades against it, and lessons carried forward.
+The bigger difference in the final screenshots comes from runs 003 and 004, where the owner raised the bar and the loop had a way to absorb that: a new requirement, a judge that grades against it, house rules, and lessons carried forward.
 
 ## Still open
 
-The run 003 judge passed the site and listed nits it did not count as failures.
-The ones worth fixing next:
+The run 004 judge passed everything and still listed 18 nits, a different and smaller set than the run 003 list that run 004 fixed.
+A judge asked to name every nit will always find some, so polish runs end when the owner says the remaining ones are not worth the tokens.
+The ones it ranked first:
 
-- In dark mode the red accent turns candy pink, and the focus color is close to the error color.
-- In dark mode the footer's hill outline and the form card edge almost vanish (1.02:1 and 1.03:1 against the background).
-- After a failed submit, the first field's label sits partly under the sticky header.
-- On desktop the contact column has an empty gap of about 150 px above the details.
-- The hero, about heading, about text and facts list repeat the same lines.
-- The team section is sparse on desktop, and the hero markup has an unused hidden circle.
+- At 960 px and up the testimonials leave a large empty block under the short lead quote.
+- At 1200 px and up the services section shows two rules at different offsets, and its heading does not line up with the first row.
+- On phones and tablets the contour lines run behind the hero text.
+- From 768 to 959 px the contact form stretches across the full width.
+- In the Loma fallback font the opening and closing quote marks look mismatched, and the contact phone number is set in a heavy monospace.
+- In dark mode the small red dots before section labels nearly disappear, and the hero accent still leans pink.
 
 ## Fairness notes
 
 The checker was written and validated against a throwaway reference site before either side ran, and it was kept outside both project folders.
 The transcripts of both builders were searched afterwards; neither opened the checker or the reference site.
 Two checker bugs were found while grading and fixed for both sides alike: a word list that missed "สาธิต" (demo) in the footer notice, and a dark-mode contrast check that ran while color transitions were still animating.
-The plain side's `reqs.md` is the original; the Temper side's carries the reworded AC13 and the run 003 design criteria.
+The plain side's `reqs.md` is the original; the Temper side's carries the reworded AC13 and the run 003 design criteria, and only the Temper side has a `rules.md`.
 One build per side, so there is no variance estimate.
 
 ## Run the checker

@@ -20,9 +20,10 @@ Honest reading: when the requirements are already sharp, Temper does not score h
 What it adds is outside the tests.
 On the site, its judge caught Thai text breaking mid-word that the builder had introduced and missed, and the loop fixed it.
 On the runbook, the judge found two places where the requirements were ambiguous and stopped to ask instead of guessing.
+The site figure is the run built from the same requirements as the plain side; with the later polish, design and house-rules runs the owner asked for, the site came to 1.72M tokens over four runs.
 Details, per-case prompts and verdicts, and the history of earlier runs are in [benchmark/](benchmark/).
 
-Final result of the company profile example, after the owner asked Temper for more taste (see [the example](examples/company-profile/) for how it got there):
+Final result of the company profile example, after the owner asked Temper for more taste and a polish pass (see [the example](examples/company-profile/) for how it got there):
 
 | Without Temper | With Temper |
 |---|---|
