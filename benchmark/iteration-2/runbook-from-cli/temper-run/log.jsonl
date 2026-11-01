@@ -1,0 +1,1 @@
+{"run": "001", "version": 1, "total": 6, "passed": 5, "failed": ["AC3"], "advisory_total": 1, "advisory_passed": 1, "advisory_failed": [], "at": "2026-11-01T18:34:21+00:00", "decision": "continue", "best_version": 1}

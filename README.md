@@ -5,6 +5,31 @@ It keeps versioned prompts and a lessons file per project, and a separate "dream
 
 Named after tempering steel: heat it, hammer it, test it, repeat until it holds.
 
+## Benchmark
+
+Four tasks, each built from the same `reqs.md` with a plain request and with Temper, graded by hidden tests that neither side saw.
+
+| Task | Plain request | Temper | Tokens, plain / Temper |
+|---|---|---|---|
+| csv-export-thai (Python) | 21/21 | 21/21 | 71k / 149k |
+| parse-duration (Node) | 51/51 | 51/51 | 65k / 147k |
+| runbook-from-cli (Thai docs) | 17/17 | 17/17 | 65k / 144k |
+| company profile site (HTML, CSS, JS) | 35/35 | 35/35 | 156k / 557k |
+
+Honest reading: when the requirements are already sharp, Temper does not score higher, and it costs about 2 to 3.6 times the tokens.
+What it adds is outside the tests.
+On the site, its judge caught Thai text breaking mid-word that the builder had introduced and missed, and the loop fixed it.
+On the runbook, the judge found two places where the requirements were ambiguous and stopped to ask instead of guessing.
+Details, per-case prompts and verdicts, and the history of earlier runs are in [benchmark/](benchmark/).
+
+Final result of the company profile example, after the owner asked Temper for more taste (see [the example](examples/company-profile/) for how it got there):
+
+| Without Temper | With Temper |
+|---|---|
+| ![Without Temper](examples/company-profile/screenshots/final-without-temper-hero.png) | ![With Temper](examples/company-profile/screenshots/final-with-temper-hero.png) |
+
+The loop is most useful where a single attempt tends to miss: vague requirements, larger tasks, work that tests cannot fully check, and projects where the same mistakes repeat across runs.
+
 ## How it works
 
 You write what you need in `reqs.md` (or `need.md`), with acceptance criteria that someone else could check.
@@ -78,21 +103,6 @@ In a project that has a `reqs.md`:
 - "dream over the last runs" consolidates the lessons file
 
 Everything Temper writes lives in `.temper/` in your project: prompts, verdicts, diagnoses, the iteration log, `learnings.md`, and dream proposals.
-
-## Does it help?
-
-Honest answer so far: not when your requirements are already sharp.
-
-- [benchmark/](benchmark/) runs three tasks (Python, Node, Thai docs) with and without Temper, graded by hidden tests. Same scores, about 2.3x the tokens. The value showed up in the judge catching ambiguous requirements, which the tests do not measure.
-- [examples/company-profile/](examples/company-profile/) builds the same Thai company profile site with a plain request and with Temper. Both pass all 35 automated checks. Temper's judge caught a Thai line-wrapping bug the builder missed, and when the owner asked for more taste, the loop absorbed it as a new requirement and redesigned the site. Every prompt and verdict is kept.
-
-Final result of that example, without and with Temper:
-
-| Without Temper | With Temper |
-|---|---|
-| ![Without Temper](examples/company-profile/screenshots/final-without-temper-hero.png) | ![With Temper](examples/company-profile/screenshots/final-with-temper-hero.png) |
-
-The loop is most useful where a single attempt tends to miss: vague requirements, larger tasks, and projects where the same mistakes repeat across runs.
 
 ## Layout
 

@@ -1,0 +1,265 @@
+{
+  "expectations": [
+    {
+      "text": "hidden: valid \"1h30m\"",
+      "passed": true,
+      "evidence": "passed"
+    },
+    {
+      "text": "hidden: valid \"1H30M\"",
+      "passed": true,
+      "evidence": "passed"
+    },
+    {
+      "text": "hidden: valid \" 2D 5s \"",
+      "passed": true,
+      "evidence": "passed"
+    },
+    {
+      "text": "hidden: valid \"05m\"",
+      "passed": true,
+      "evidence": "passed"
+    },
+    {
+      "text": "hidden: valid \"1d1h1m1s\"",
+      "passed": true,
+      "evidence": "passed"
+    },
+    {
+      "text": "hidden: valid \"30d\"",
+      "passed": true,
+      "evidence": "passed"
+    },
+    {
+      "text": "hidden: valid \"0h1s\"",
+      "passed": true,
+      "evidence": "passed"
+    },
+    {
+      "text": "hidden: valid \"\\\\t1h\\\\t30m\\\\n\"",
+      "passed": true,
+      "evidence": "passed"
+    },
+    {
+      "text": "hidden: invalid \"1h30\"",
+      "passed": true,
+      "evidence": "passed"
+    },
+    {
+      "text": "hidden: invalid \"90\"",
+      "passed": true,
+      "evidence": "passed"
+    },
+    {
+      "text": "hidden: invalid \"0\"",
+      "passed": true,
+      "evidence": "passed"
+    },
+    {
+      "text": "hidden: invalid \"1m1h\"",
+      "passed": true,
+      "evidence": "passed"
+    },
+    {
+      "text": "hidden: invalid \"1h1h\"",
+      "passed": true,
+      "evidence": "passed"
+    },
+    {
+      "text": "hidden: invalid \"1s1d\"",
+      "passed": true,
+      "evidence": "passed"
+    },
+    {
+      "text": "hidden: invalid \"1 h\"",
+      "passed": true,
+      "evidence": "passed"
+    },
+    {
+      "text": "hidden: invalid \"1.5h\"",
+      "passed": true,
+      "evidence": "passed"
+    },
+    {
+      "text": "hidden: invalid \"-5m\"",
+      "passed": true,
+      "evidence": "passed"
+    },
+    {
+      "text": "hidden: invalid \"+5m\"",
+      "passed": true,
+      "evidence": "passed"
+    },
+    {
+      "text": "hidden: invalid \"\"",
+      "passed": true,
+      "evidence": "passed"
+    },
+    {
+      "text": "hidden: invalid \"   \"",
+      "passed": true,
+      "evidence": "passed"
+    },
+    {
+      "text": "hidden: invalid \"30d1s\"",
+      "passed": true,
+      "evidence": "passed"
+    },
+    {
+      "text": "hidden: invalid \"31d\"",
+      "passed": true,
+      "evidence": "passed"
+    },
+    {
+      "text": "hidden: invalid \"0s\"",
+      "passed": true,
+      "evidence": "passed"
+    },
+    {
+      "text": "hidden: invalid \"0h0m\"",
+      "passed": true,
+      "evidence": "passed"
+    },
+    {
+      "text": "hidden: invalid \"5x\"",
+      "passed": true,
+      "evidence": "passed"
+    },
+    {
+      "text": "hidden: invalid \"h\"",
+      "passed": true,
+      "evidence": "passed"
+    },
+    {
+      "text": "hidden: invalid \"1hh\"",
+      "passed": true,
+      "evidence": "passed"
+    },
+    {
+      "text": "hidden: invalid \"1h,30m\"",
+      "passed": true,
+      "evidence": "passed"
+    },
+    {
+      "text": "hidden: invalid \"5m 5\"",
+      "passed": true,
+      "evidence": "passed"
+    },
+    {
+      "text": "hidden: invalid \"1h_30m\"",
+      "passed": true,
+      "evidence": "passed"
+    },
+    {
+      "text": "hidden: error is a DurationError subclass of Error with quoted input",
+      "passed": true,
+      "evidence": "passed"
+    },
+    {
+      "text": "hidden: error message JSON-quotes inputs with special characters",
+      "passed": true,
+      "evidence": "passed"
+    },
+    {
+      "text": "hidden: non-string 5400 throws TypeError",
+      "passed": true,
+      "evidence": "passed"
+    },
+    {
+      "text": "hidden: non-string null throws TypeError",
+      "passed": true,
+      "evidence": "passed"
+    },
+    {
+      "text": "hidden: non-string undefined throws TypeError",
+      "passed": true,
+      "evidence": "passed"
+    },
+    {
+      "text": "hidden: non-string {} throws TypeError",
+      "passed": true,
+      "evidence": "passed"
+    },
+    {
+      "text": "hidden: non-string [\"1h\"] throws TypeError",
+      "passed": true,
+      "evidence": "passed"
+    },
+    {
+      "text": "hidden: format 5400",
+      "passed": true,
+      "evidence": "passed"
+    },
+    {
+      "text": "hidden: format 86400",
+      "passed": true,
+      "evidence": "passed"
+    },
+    {
+      "text": "hidden: format 90061",
+      "passed": true,
+      "evidence": "passed"
+    },
+    {
+      "text": "hidden: format 1",
+      "passed": true,
+      "evidence": "passed"
+    },
+    {
+      "text": "hidden: format 2592000",
+      "passed": true,
+      "evidence": "passed"
+    },
+    {
+      "text": "hidden: format 3601",
+      "passed": true,
+      "evidence": "passed"
+    },
+    {
+      "text": "hidden: format 0 throws RangeError",
+      "passed": true,
+      "evidence": "passed"
+    },
+    {
+      "text": "hidden: format -1 throws RangeError",
+      "passed": true,
+      "evidence": "passed"
+    },
+    {
+      "text": "hidden: format 1.5 throws RangeError",
+      "passed": true,
+      "evidence": "passed"
+    },
+    {
+      "text": "hidden: format 2592001 throws RangeError",
+      "passed": true,
+      "evidence": "passed"
+    },
+    {
+      "text": "hidden: format NaN throws RangeError",
+      "passed": true,
+      "evidence": "passed"
+    },
+    {
+      "text": "hidden: format 60 throws RangeError",
+      "passed": true,
+      "evidence": "passed"
+    },
+    {
+      "text": "hidden: round trip on a spread of values",
+      "passed": true,
+      "evidence": "passed"
+    },
+    {
+      "text": "The repo's own test suite passes",
+      "passed": true,
+      "evidence": "# pass 39 # fail 0"
+    }
+  ],
+  "summary": {
+    "passed": 51,
+    "failed": 0,
+    "total": 51,
+    "pass_rate": 1.0
+  }
+}

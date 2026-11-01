@@ -1,0 +1,95 @@
+{
+  "expectations": [
+    {
+      "text": "RUNBOOK.md exists at the repo root",
+      "passed": true,
+      "evidence": "5163 chars"
+    },
+    {
+      "text": "The six R2 headings appear exactly and in order",
+      "passed": true,
+      "evidence": "found ['## ภาพรวม', '## ตารางเวลา', '## คำสั่งที่ใช้บ่อย', '## การ Restore', '## Exit codes', '## การแก้ปัญหา']"
+    },
+    {
+      "text": "Every CLI flag is documented",
+      "passed": true,
+      "evidence": "missing []"
+    },
+    {
+      "text": "No invented flags appear",
+      "passed": true,
+      "evidence": "invented []"
+    },
+    {
+      "text": "Subcommands run, restore, list, verify are all shown",
+      "passed": true,
+      "evidence": "searched python -m backup <cmd>"
+    },
+    {
+      "text": "Exit code table lists 0, 2, 3, 4, 5, 6, 7",
+      "passed": true,
+      "evidence": "table codes [0, 1, 2, 3, 4, 5, 6, 7, 8]"
+    },
+    {
+      "text": "Exit code table includes 8 (disk space, only returned from restore.py)",
+      "passed": true,
+      "evidence": "table codes [0, 1, 2, 3, 4, 5, 6, 7, 8]"
+    },
+    {
+      "text": "Exit code table rows have at least 3 columns (code, meaning, action)",
+      "passed": true,
+      "evidence": "11 rows"
+    },
+    {
+      "text": "Schedule is stated as 09:17 Bangkok time",
+      "passed": true,
+      "evidence": "looked for 09:17"
+    },
+    {
+      "text": "Schedule is not stated as 02:17 Bangkok time",
+      "passed": true,
+      "evidence": "looked for 02:17 labelled Bangkok"
+    },
+    {
+      "text": "Retention of 14 days is stated",
+      "passed": true,
+      "evidence": "looked for 14 วัน/days"
+    },
+    {
+      "text": "Bucket smc-prod-backups is named",
+      "passed": true,
+      "evidence": "looked for bucket name"
+    },
+    {
+      "text": "Restore section runs --dry-run before the real restore",
+      "passed": true,
+      "evidence": "restore commands ['python -m backup restore --snapshot <SNAPSHOT_ID> --to /restore/target --dry-run', 'python -m backup restore --snapshot <SNAPSHOT_ID> --to /restore/target', 'python -m backup restore --snapshot <SNAPSHOT_ID> --to /restore/target --force']"
+    },
+    {
+      "text": "Every code block with commands is fenced as bash",
+      "passed": true,
+      "evidence": "langs ['bash', 'bash', 'bash', 'bash', 'bash', 'bash', 'bash', 'bash', 'bash', 'bash']"
+    },
+    {
+      "text": "Prose is mainly Thai (Thai letters outnumber Latin letters outside code)",
+      "passed": true,
+      "evidence": "thai=1736 latin=692"
+    },
+    {
+      "text": "Under 6000 characters",
+      "passed": true,
+      "evidence": "5163 chars"
+    },
+    {
+      "text": "Code in backup/ and deploy/ is unchanged",
+      "passed": true,
+      "evidence": "dir compare with fixture"
+    }
+  ],
+  "summary": {
+    "passed": 17,
+    "failed": 0,
+    "total": 17,
+    "pass_rate": 1.0
+  }
+}

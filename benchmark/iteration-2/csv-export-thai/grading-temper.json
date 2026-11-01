@@ -1,0 +1,115 @@
+{
+  "expectations": [
+    {
+      "text": "hidden: test_r1_header_exact",
+      "passed": true,
+      "evidence": "passed"
+    },
+    {
+      "text": "hidden: test_r2_bom_and_utf8_thai",
+      "passed": true,
+      "evidence": "passed"
+    },
+    {
+      "text": "hidden: test_r3_crlf_every_row",
+      "passed": true,
+      "evidence": "passed"
+    },
+    {
+      "text": "hidden: test_r4_quoting_comma_quote_newline",
+      "passed": true,
+      "evidence": "passed"
+    },
+    {
+      "text": "hidden: test_r5_amount_format[1234.5-1234.50]",
+      "passed": true,
+      "evidence": "passed"
+    },
+    {
+      "text": "hidden: test_r5_amount_format[1000000-1000000.00]",
+      "passed": true,
+      "evidence": "passed"
+    },
+    {
+      "text": "hidden: test_r5_amount_format[0-0.00]",
+      "passed": true,
+      "evidence": "passed"
+    },
+    {
+      "text": "hidden: test_r5_amount_format[7.10-7.10]",
+      "passed": true,
+      "evidence": "passed"
+    },
+    {
+      "text": "hidden: test_r6_utc_iso_z_from_other_zones",
+      "passed": true,
+      "evidence": "passed"
+    },
+    {
+      "text": "hidden: test_r7_missing_note_empty",
+      "passed": true,
+      "evidence": "passed"
+    },
+    {
+      "text": "hidden: test_r8_status_single_case_insensitive",
+      "passed": true,
+      "evidence": "passed"
+    },
+    {
+      "text": "hidden: test_r8_status_list",
+      "passed": true,
+      "evidence": "passed"
+    },
+    {
+      "text": "hidden: test_r9_cancelled_excluded_by_default_and_on_other_filters",
+      "passed": true,
+      "evidence": "passed"
+    },
+    {
+      "text": "hidden: test_r9_cancelled_included_when_requested",
+      "passed": true,
+      "evidence": "passed"
+    },
+    {
+      "text": "hidden: test_r10_date_filter_uses_bangkok_day",
+      "passed": true,
+      "evidence": "passed"
+    },
+    {
+      "text": "hidden: test_r11_sort_by_instant_then_id",
+      "passed": true,
+      "evidence": "passed"
+    },
+    {
+      "text": "hidden: test_r12_empty_is_header_only",
+      "passed": true,
+      "evidence": "passed"
+    },
+    {
+      "text": "hidden: test_r13_invalid_status_raises[refunded]",
+      "passed": true,
+      "evidence": "passed"
+    },
+    {
+      "text": "hidden: test_r13_invalid_status_raises[bad1]",
+      "passed": true,
+      "evidence": "passed"
+    },
+    {
+      "text": "The repo's own test suite passes",
+      "passed": true,
+      "evidence": "35 passed in 0.06s"
+    },
+    {
+      "text": "shop/orders.py is unchanged",
+      "passed": true,
+      "evidence": "byte compare with fixture"
+    }
+  ],
+  "summary": {
+    "passed": 21,
+    "failed": 0,
+    "total": 21,
+    "pass_rate": 1.0
+  }
+}
